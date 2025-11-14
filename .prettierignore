@@ -1,0 +1,7 @@
+node_modules
+.nuxt
+dist
+build
+*.min.js
+*.lock
+*.log⏎
