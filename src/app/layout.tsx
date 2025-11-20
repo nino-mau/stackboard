@@ -9,6 +9,7 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
+import IconifySetup from '@/components/iconifySetup';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <IconifySetup />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
