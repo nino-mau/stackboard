@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/assets/css/main.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import { AppMainSidebar } from '@/components/app-main-sidebar';
 import {
   SidebarProvider,
   SidebarInset,
@@ -10,6 +9,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
 import IconifySetup from '@/components/iconifySetup';
+import { AppSidebar } from '@/components/app-sidebar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -50,7 +50,7 @@ export default function RootLayout({
               } as React.CSSProperties
             }
           >
-            <AppMainSidebar />
+            <AppSidebar />
             <SidebarInset>
               <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
                 <SidebarTrigger className="-ml-1" />
