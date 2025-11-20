@@ -2,6 +2,13 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/assets/css/main.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { AppMainSidebar } from '@/components/app-main-sidebar';
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger
+} from '@/components/ui/sidebar';
+import { Separator } from '@/components/ui/separator';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +41,24 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SidebarProvider
+            style={
+              {
+                '--sidebar-width': '350px'
+              } as React.CSSProperties
+            }
+          >
+            <AppMainSidebar />
+            <SidebarInset>
+              <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
+                <SidebarTrigger className="-ml-1" />
+                <Separator
+                  orientation="vertical"
+                  className="mr-2 data-[orientation=vertical]:h-4"
+                />
+              </header>
+            </SidebarInset>
+          </SidebarProvider>
           {children}
         </ThemeProvider>
       </body>
