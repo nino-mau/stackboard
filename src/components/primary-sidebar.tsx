@@ -74,9 +74,9 @@ export function PrimarySidebar({
           <SidebarGroupContent>
             <SidebarMenu className="items-center">
               {data.navMain.map((item) => (
-                <SidebarMenuItem key={item.title} className="size-10">
+                <SidebarMenuItem key={item.title} className="!size-10">
                   <SidebarMenuButton
-                    className="flex size-full items-center justify-center"
+                    className="flex size-full items-center justify-center group-data-[collapsible=icon]:size-full!"
                     tooltip={{
                       children: item.title,
                       hidden: false,
