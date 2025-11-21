@@ -12,7 +12,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import SiteLogo from './icon/site-logo';
 import { NavUser } from './nav-user';
@@ -23,40 +23,40 @@ const data = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
+    avatar: '/avatars/shadcn.jpg',
   },
   navMain: [
     {
       title: 'Inbox',
       url: '#',
       icon: 'solar:box-minimalistic-bold-duotone',
-      isActive: true
+      isActive: true,
     },
     {
       title: 'Drafts',
       url: '#',
       icon: 'solar:card-bold-duotone',
-      isActive: false
+      isActive: false,
     },
     {
       title: 'Sent',
       url: '#',
       icon: 'solar:album-bold-duotone',
-      isActive: false
+      isActive: false,
     },
     {
       title: 'Junk',
       url: '#',
       icon: 'solar:user-rounded-bold-duotone',
-      isActive: false
+      isActive: false,
     },
     {
       title: 'Trash',
       url: '#',
       icon: 'solar:folder-2-bold-duotone',
-      isActive: false
-    }
-  ]
+      isActive: false,
+    },
+  ],
 };
 
 export function PrimarySidebar({
@@ -65,9 +65,9 @@ export function PrimarySidebar({
   const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
 
   return (
-    <Sidebar collapsible="none" className="w-[61px] border-r py-1.5">
+    <Sidebar collapsible="none" className="!w-[61px] border-r py-1.5">
       <SidebarHeader className="flex items-center">
-        <SiteLogo width={32} height={32} fill="var(--color-primary)" />
+        <SiteLogo width={32} height={32} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -79,7 +79,7 @@ export function PrimarySidebar({
                     className="flex size-full items-center justify-center"
                     tooltip={{
                       children: item.title,
-                      hidden: false
+                      hidden: false,
                     }}
                     isActive={activeItem?.title === item.title}
                   >
@@ -100,7 +100,7 @@ export function PrimarySidebar({
               className="flex size-full items-center justify-center"
               tooltip={{
                 children: 'Settings',
-                hidden: false
+                hidden: false,
               }}
             >
               <Settings className="!size-4" />
@@ -113,7 +113,7 @@ export function PrimarySidebar({
               className="flex size-full items-center justify-center"
               tooltip={{
                 children: 'About',
-                hidden: false
+                hidden: false,
               }}
             >
               <Info className="!size-4" />
