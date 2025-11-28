@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "db:push": "docker compose exec nextjs pnpm drizzle-kit push",
-    "drizzle-studio": "drizzle-kit studio --port 5000 --host 0.0.0.0 --verbose",
-    "drizzle-studio:docker": "docker compose exec nextjs pnpm drizzle-studio",
+    "drizzle-studio": "pnpm drizzle-kit studio --verbose --config ./drizzle-studio.config.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
