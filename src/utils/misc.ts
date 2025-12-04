@@ -1,5 +1,5 @@
 /**
- * Return a name string from a given email string
+ * Get name from email
  */
 export function getNameFromEmail(email: string) {
   const parts = email.split('@');
@@ -20,7 +20,21 @@ export function getNameFromEmail(email: string) {
 }
 
 /**
- * Return given string with capitalized first letter
+ * Get initials from string
+ */
+export function getInitials(name: string) {
+  if (name.length === 0) return '';
+
+  // Split the name by spaces
+  const names = name.split(' ');
+  // Extract the first letter of each name and convert it to uppercase
+  const initials = names.map((name) => name.charAt(0).toUpperCase()).join('');
+
+  return initials;
+}
+
+/**
+ * Capitalize first letter of a string
  */
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
