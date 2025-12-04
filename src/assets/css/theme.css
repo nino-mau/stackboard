@@ -55,6 +55,14 @@
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
   --color-primary-950: var(--primary-950);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  --color-toast-error-background: var(--toast-error-background);
+  --color-toast-success-background: var(--toast-success-background);
+  --color-toast-warning-background: var(--toast-warning-background);
 }
 
 :root {
@@ -74,6 +82,26 @@
   --primary-800: var(--color-teal-800);
   --primary-900: var(--color-teal-900);
   --primary-950: var(--color-teal-950);
+
+  --success: var(--color-green-600);
+  --warning: var(--color-amber-600);
+  --info: var(--color-sky-600);
+
+  --toast-error-background: color-mix(
+    in oklab,
+    var(--destructive) 10%,
+    var(--background)
+  );
+  --toast-success-background: color-mix(
+    in oklab,
+    var(--success) 10%,
+    var(--background)
+  );
+  --toast-warning-background: color-mix(
+    in oklab,
+    var(--warning) 10%,
+    var(--background)
+  );
 
   /**
   * Shadcn design tokens
