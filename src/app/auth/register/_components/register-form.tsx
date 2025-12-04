@@ -14,9 +14,12 @@ import InputFloating from '@/components/ui/input-floating';
 import { GithubDark } from '@/components/ui/svgs/githubDark';
 import { Gitlab } from '@/components/ui/svgs/gitlab';
 import { Google } from '@/components/ui/svgs/google';
+import { authClient } from '@/lib/auth-client';
 import { getNameFromEmail } from '@/utils/misc';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 const registerUserSchema = z
@@ -27,11 +30,11 @@ const registerUserSchema = z
     password: z
       .string()
       .min(1, { message: 'Please enter a password' })
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' }),
     confirmPassword: z
       .string()
       .min(1, { message: 'Please confirm your password' })
-      .min(6, { message: 'Password must be at least 6 characters' })
+      .min(8, { message: 'Password must be at least 8 characters' })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -40,10 +43,7 @@ const registerUserSchema = z
 
 type RegisterUserSchema = z.infer<typeof registerUserSchema>;
 
-export default function RegisterForm({
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
+export default function RegisterForm() {
   const form = useForm<RegisterUserSchema>({
     resolver: zodResolver(registerUserSchema),
     mode: 'onChange',
@@ -55,6 +55,48 @@ export default function RegisterForm({
   });
 
   async function onSubmit(formData: RegisterUserSchema) {
+    const { error } = await authClient.signUp.email({
+      name: getNameFromEmail(formData.email),
+      email: formData.email,
+      password: formData.password
+    });
+
+    if (error) {
+      if (error.code) {
+        if (error.code.includes('EMAIL')) {
+          // Handle email errors
+          form.setError('email', error);
+        } else if (error.code.includes('PASSWORD')) {
+          // Handle password errors
+          form.setError('password', error);
+        } else if (
+          error.code.includes('EMAIL') &&
+          error.code.includes('PASSWORD')
+        ) {
+          // Handle email and password errors
+          form.setError('password', error);
+          form.setError('email', error);
+        } else {
+          // Handle other error
+          form.setError('email', error);
+          form.setError('password', { message: '' });
+          form.setError('confirmPassword', { message: '' });
+          toast.error(error.message);
+        }
+      } else {
+        // Handle unkown error
+        form.setError('email', {
+          message: error.statusText
+        });
+        form.setError('password', { message: '' });
+        form.setError('confirmPassword', { message: '' });
+        toast.error(error.statusText);
+      }
+      return;
+    }
+
+    // Redirect to home page
+    redirect('/?registered=true');
   }
 
   return (
@@ -84,7 +126,7 @@ export default function RegisterForm({
                   <span className="sr-only">Sign Up with Gitlab</span>
                 </Button>
               </Field>
-              <FieldSeparator className="">OR</FieldSeparator>
+              <FieldSeparator>OR</FieldSeparator>
               {/* Email Field */}
               <Controller
                 name="email"

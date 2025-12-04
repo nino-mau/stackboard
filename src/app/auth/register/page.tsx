@@ -1,8 +1,10 @@
 import { InteractiveGridPattern } from '@/components/background/interactive-grid-pattern';
 import RegisterForm from './_components/register-form';
 import { cn } from '@/lib/utils';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
   return (
     <div className="relative flex h-screen w-full flex-col items-center justify-center p-6 md:p-10">
       <div className="z-10 w-fit">
