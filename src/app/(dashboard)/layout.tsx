@@ -6,6 +6,7 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar';
 import { auth } from '@/lib/auth';
+import { requireAuth } from '@/utils/auth';
 import { headers } from 'next/headers';
 
 export default async function DashboardLayout({
@@ -17,6 +18,7 @@ export default async function DashboardLayout({
     headers: await headers()
   });
 
+  requireAuth();
 
   return (
     <SidebarProvider
