@@ -1,19 +1,21 @@
 'use client';
 
-import * as React from 'react';
-
 import { Sidebar } from '@/components/ui/sidebar';
 import { PrimarySidebar } from './primary-sidebar';
 import { SecondarySidebar } from './secondary-sidebar';
+import { User } from '@/types/user';
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+type AppSidebarProps = {
+  user: User;
+};
+
+export function AppSidebar(props: AppSidebarProps) {
   return (
     <Sidebar
       collapsible="icon"
       className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
-      {...props}
     >
-      <PrimarySidebar />
+      <PrimarySidebar user={props.user} />
 
       <SecondarySidebar />
     </Sidebar>
