@@ -17,7 +17,6 @@ export default async function DashboardLayout({
   const session = await auth.api.getSession({
     headers: await headers()
   });
-
   requireAuth();
 
   return (
