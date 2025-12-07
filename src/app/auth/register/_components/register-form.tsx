@@ -157,6 +157,7 @@ export default function RegisterForm() {
                       {...field}
                       id="form-rhf-demo-title"
                       label="Password"
+                      type="password"
                       inputClasses="aria-invalid:text-foreground!"
                       aria-invalid={fieldState.invalid}
                       autoComplete="off"
@@ -177,6 +178,7 @@ export default function RegisterForm() {
                       {...field}
                       id="form-rhf-demo-title"
                       label="Confirm Password"
+                      type="password"
                       aria-invalid={fieldState.invalid}
                       inputClasses="aria-invalid:text-foreground!"
                       autoComplete="off"
