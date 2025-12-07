@@ -5,7 +5,7 @@ import {
   InfoIcon,
   Loader2Icon,
   OctagonXIcon,
-  TriangleAlertIcon
+  TriangleAlertIcon,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
@@ -16,6 +16,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       toastOptions={{
+        className: 'font-sans',
         classNames: {
           error:
             '!bg-toast-error-background !text-destructive !border-destructive/30',
@@ -23,8 +24,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
             '!bg-toast-success-background !text-success !border-success/30',
           warning:
             '!bg-toast-warning-background !text-warning !border-warning/30',
-          info: ''
-        }
+          info: '',
+        },
       }}
       theme={theme as ToasterProps['theme']}
       className="toaster group"
@@ -33,14 +34,15 @@ const Toaster = ({ ...props }: ToasterProps) => {
         info: <InfoIcon className="size-4" />,
         warning: <TriangleAlertIcon className="size-4" />,
         error: <OctagonXIcon className="size-4" />,
-        loading: <Loader2Icon className="size-4 animate-spin" />
+        loading: <Loader2Icon className="size-4 animate-spin" />,
       }}
       style={
         {
           '--normal-bg': 'var(--popover)',
           '--normal-text': 'var(--popover-foreground)',
           '--normal-border': 'var(--border)',
-          '--border-radius': 'var(--radius)'
+          '--border-radius': 'var(--radius)',
+          fontFamily: 'var(--font-bricolage-grotesque)',
         } as React.CSSProperties
       }
       {...props}
