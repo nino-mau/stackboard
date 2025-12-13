@@ -11,6 +11,7 @@ import {
   FieldSeparator
 } from '@/components/ui/field';
 import InputFloating from '@/components/ui/input-floating';
+import { Spinner } from '@/components/ui/spinner';
 import { GithubDark } from '@/components/ui/svgs/githubDark';
 import { Gitlab } from '@/components/ui/svgs/gitlab';
 import { Google } from '@/components/ui/svgs/google';
@@ -18,6 +19,7 @@ import { authClient } from '@/lib/auth-client';
 import { getNameFromEmail } from '@/utils/misc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { redirect } from 'next/navigation';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -54,7 +56,11 @@ export default function RegisterForm() {
     }
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   async function onSubmit(formData: RegisterUserSchema) {
+    setIsLoading(true);
+
     const { error } = await authClient.signUp.email({
       name: getNameFromEmail(formData.email),
       email: formData.email,
@@ -62,6 +68,7 @@ export default function RegisterForm() {
     });
 
     if (error) {
+      setIsLoading(false);
       if (error.code) {
         if (error.code.includes('EMAIL')) {
           // Handle email errors
@@ -103,13 +110,17 @@ export default function RegisterForm() {
     <div className="flex flex-col items-center justify-center gap-6">
       <Card className="w-fit overflow-hidden border-0 bg-transparent p-0">
         <CardContent>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-110 p-6">
+          <form
+            autoComplete="off"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-110 p-6"
+          >
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <SiteLogo className="mb-4" />
                 <h1 className="text-2xl font-bold">Welcome on Stackboard</h1>
                 <p className="text-muted-foreground text-balance">
-                  Sign Up to your Acme Inc account
+                  Sign Up to your Stackboard account
                 </p>
               </div>
               <Field className="grid grid-cols-3 gap-4">
@@ -135,7 +146,7 @@ export default function RegisterForm() {
                   <Field className="gap-2" data-invalid={fieldState.invalid}>
                     <InputFloating
                       {...field}
-                      id="form-rhf-demo-title"
+                      id="register-form-email"
                       label="Email"
                       inputClasses="aria-invalid:text-foreground!"
                       aria-invalid={fieldState.invalid}
@@ -155,7 +166,7 @@ export default function RegisterForm() {
                   <Field className="gap-2" data-invalid={fieldState.invalid}>
                     <InputFloating
                       {...field}
-                      id="form-rhf-demo-title"
+                      id="register-form-password"
                       label="Password"
                       type="password"
                       inputClasses="aria-invalid:text-foreground!"
@@ -176,7 +187,7 @@ export default function RegisterForm() {
                   <Field className="gap-2" data-invalid={fieldState.invalid}>
                     <InputFloating
                       {...field}
-                      id="form-rhf-demo-title"
+                      id="register-form-confirm-password"
                       label="Confirm Password"
                       type="password"
                       aria-invalid={fieldState.invalid}
@@ -190,7 +201,10 @@ export default function RegisterForm() {
                 )}
               />
               <Field>
-                <Button type="submit">Sign Up</Button>
+                <Button disabled={isLoading} type="submit">
+                  {isLoading && <Spinner />}
+                  Sign Up
+                </Button>
               </Field>
               <FieldDescription className="text-center">
                 Already have an account? <a href="#">Sign in</a>
