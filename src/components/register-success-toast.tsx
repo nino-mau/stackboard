@@ -1,4 +1,4 @@
-import { ShieldCheck } from 'lucide-react';
+import { BadgePlus, CirclePlus, DiamondPlus, PartyPopper } from 'lucide-react';
 
 type Props = {
   userName: string;
@@ -9,10 +9,10 @@ export default function RegisterSuccessToast({ userName }: Props) {
   return (
     <div className="flex items-center gap-3">
       <div className="bg-primary/10 rounded-md p-2">
-        <ShieldCheck className="text-primary size-6" />
+        <DiamondPlus className="text-primary size-5.5" />
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <p className="text-foreground text-sm font-normal">
           Welcome, <span className="font-bold">{userName}</span> !
         </p>

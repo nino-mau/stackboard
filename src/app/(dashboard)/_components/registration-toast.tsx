@@ -21,7 +21,7 @@ export default function RegistrationToast({ userName, avatarUrl }: Props) {
         toast(
           <RegisterSuccessToast userName={userName} avatarUrl={avatarUrl} />,
           {
-            position: 'top-right',
+            position: 'top-center',
             duration: 5000,
             dismissible: true,
             id: 'registration-success' // Prevent duplicate toasts
