@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef, HTMLInputTypeAttribute, useId } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { ComponentPropsWithoutRef } from 'react';
 
 type InputFloatingProps = {
   label: string;
@@ -24,13 +24,17 @@ export default function InputFloating({
         <span
           className={cn(
             backgroundClass,
-            'group-focus-within:bg-background mx-1 inline-flex leading-none'
+            'bg-background inline-flex px-1 leading-none'
           )}
         >
           {label}
         </span>
       </label>
-      <Input placeholder=" " className={cn(inputClasses)} {...inputProps} />
+      <Input
+        placeholder=" "
+        className={cn(inputClasses, '!bg-background')}
+        {...inputProps}
+      />
     </div>
   );
 }
