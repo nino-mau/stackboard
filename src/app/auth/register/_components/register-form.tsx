@@ -18,6 +18,7 @@ import { Google } from '@/components/ui/svgs/google';
 import { authClient } from '@/lib/auth-client';
 import { getNameFromEmail } from '@/utils/misc';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -207,7 +208,7 @@ export default function RegisterForm() {
                 </Button>
               </Field>
               <FieldDescription className="text-center">
-                Already have an account? <a href="#">Sign in</a>
+                Already have an account? <Link href="/auth/login">Sign in</Link>
               </FieldDescription>
             </FieldGroup>
           </form>
