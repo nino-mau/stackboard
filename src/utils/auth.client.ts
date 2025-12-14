@@ -14,3 +14,15 @@ export async function logout() {
     }
   });
 }
+
+/**
+ * Login with specified oauth provider
+ */
+export async function loginWithOAuth(provider: 'github' | 'google') {
+  if (provider === 'github') {
+    await authClient.signIn.social({
+      provider: 'github'
+    });
+  }
+  return;
+}

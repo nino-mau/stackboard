@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
+import { loginWithOAuth } from '@/utils/auth.client';
 
 const loginUserSchema = z.object({
   email: z
@@ -47,6 +48,7 @@ export function LoginForm() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isGithubLoading, setIsGithubLoading] = useState(false);
 
   async function onSubmit(formData: LoginUserSchema) {
     setIsLoading(true);
@@ -138,15 +140,23 @@ export function LoginForm() {
               <Field className="grid grid-cols-3 gap-4">
                 <Button variant="outline" type="button">
                   <Google />
-                  <span className="sr-only">Sign Up with Google</span>
+                  <span className="sr-only">Sign In with Google</span>
                 </Button>
-                <Button variant="outline" type="button">
-                  <GithubDark />
-                  <span className="sr-only">Sign Up with Github</span>
+                <Button
+                  onClick={async () => {
+                    setIsGithubLoading(true);
+                    await loginWithOAuth('github');
+                  }}
+                  disabled={isGithubLoading}
+                  variant="outline"
+                  type="button"
+                >
+                  {isGithubLoading ? <Spinner /> : <GithubDark />}
+                  <span className="sr-only">Sign In with Github</span>
                 </Button>
                 <Button variant="outline" type="button">
                   <Gitlab />
-                  <span className="sr-only">Sign Up with Gitlab</span>
+                  <span className="sr-only">Sign In with Gitlab</span>
                 </Button>
               </Field>
               <FieldDescription className="text-center">
