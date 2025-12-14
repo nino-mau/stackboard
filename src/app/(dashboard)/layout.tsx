@@ -3,27 +3,27 @@ import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { auth } from '@/lib/auth';
 import { requireAuth } from '@/utils/auth';
 import { headers } from 'next/headers';
 
 export default async function DashboardLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await requireAuth();
   const session = await auth.api.getSession({
-    headers: await headers()
+    headers: await headers(),
   });
-  requireAuth();
 
   return (
     <SidebarProvider
       style={
         {
-          '--sidebar-width': '350px'
+          '--sidebar-width': '350px',
         } as React.CSSProperties
       }
     >
