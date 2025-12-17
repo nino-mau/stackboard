@@ -1,3 +1,5 @@
+import { SidebarSectionType } from '@/types/sidebar';
+
 /**
  * Get name from email
  */
@@ -38,4 +40,18 @@ export function getInitials(name: string) {
  */
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
+ * Get name of the current page from pathname
+ */
+export function getPageName(pathname: string): string {
+  return pathname.split('/').pop() ?? '';
+}
+
+/**
+ * Get name of the current section from pathname
+ */
+export function getSectionName(pathname: string): string {
+  return pathname.split('/').at(1) ?? '';
 }
