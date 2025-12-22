@@ -8,7 +8,7 @@ import {
   FieldDescription,
   FieldError,
   FieldGroup,
-  FieldSeparator,
+  FieldSeparator
 } from '@/components/ui/field';
 import InputFloating from '@/components/ui/input-floating';
 import { Spinner } from '@/components/ui/spinner';
@@ -18,7 +18,7 @@ import { Google } from '@/components/ui/svgs/google';
 import { authClient } from '@/lib/auth-client';
 import { loginWithOAuth } from '@/utils/auth.client';
 import { getNameFromEmail } from '@/utils/misc';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
@@ -29,8 +29,9 @@ import * as z from 'zod';
 const registerUserSchema = z
   .object({
     email: z
-      .email({ message: 'Please enter a valid email address' })
-      .min(1, { message: 'Please enter an email address' }),
+      .string()
+      .min(1, { message: 'Please enter an email address' })
+      .email({ message: 'Please enter a valid email address' }),
     password: z
       .string()
       .min(1, { message: 'Please enter a password' })
@@ -38,24 +39,24 @@ const registerUserSchema = z
     confirmPassword: z
       .string()
       .min(1, { message: 'Please confirm your password' })
-      .min(8, { message: 'Password must be at least 8 characters' }),
+      .min(8, { message: 'Password must be at least 8 characters' })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ['confirmPassword'],
+    path: ['confirmPassword']
   });
 
 type RegisterUserSchema = z.infer<typeof registerUserSchema>;
 
 export default function RegisterForm() {
   const form = useForm<RegisterUserSchema>({
-    resolver: zodResolver(registerUserSchema),
+    resolver: standardSchemaResolver(registerUserSchema),
     mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
-      confirmPassword: '',
-    },
+      confirmPassword: ''
+    }
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +68,7 @@ export default function RegisterForm() {
     const { error } = await authClient.signUp.email({
       name: getNameFromEmail(formData.email),
       email: formData.email,
-      password: formData.password,
+      password: formData.password
     });
 
     if (error) {
@@ -96,7 +97,7 @@ export default function RegisterForm() {
       } else {
         // Handle unkown error
         form.setError('email', {
-          message: error.statusText,
+          message: error.statusText
         });
         form.setError('password', { message: '' });
         form.setError('confirmPassword', { message: '' });
@@ -111,7 +112,7 @@ export default function RegisterForm() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <Card className="w-fit overflow-hidden border-0 bg-transparent p-0">
+      <Card className="w-fit overflow-hidden bg-transparent p-0 ring-0">
         <CardContent>
           <form
             autoComplete="off"

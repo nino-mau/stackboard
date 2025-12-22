@@ -1,5 +1,5 @@
 import { SidebarSection, SidebarSectionType } from '@/types/sidebar';
-import { Bot, Frame, PieChart } from 'lucide-react';
+import { Layers01Icon, Square01Icon } from '@hugeicons/core-free-icons';
 
 /**
  * Sidebar configuration object, each section correspond to a page group
@@ -10,9 +10,9 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
       label: '',
       items: [
         {
-          title: 'All Projects',
+          title: 'Projects',
           url: '#',
-          icon: Bot
+          icon: Layers01Icon
         }
       ]
     },
@@ -22,7 +22,7 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'test',
           url: '#',
-          icon: Bot
+          icon: Square01Icon
         }
       ]
     }
@@ -34,7 +34,7 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'All Files',
           url: '#',
-          icon: Bot
+          icon: Square01Icon
         }
       ]
     },
@@ -44,7 +44,7 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'test',
           url: '#',
-          icon: Bot
+          icon: Square01Icon
         }
       ]
     }

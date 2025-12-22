@@ -3,10 +3,14 @@ import IconifySetup from '@/components/iconifySetup';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque } from 'next/font/google';
+import { Bricolage_Grotesque, Inter } from 'next/font/google';
 
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: '--font-bricolage-grotesque',
+// const bricolageGrotesque = Bricolage_Grotesque({
+//   variable: '--font-bricolage-grotesque',
+//   subsets: ['latin']
+// });
+const mainFont = Inter({
+  variable: '--font-sans',
   subsets: ['latin']
 });
 
@@ -22,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bricolageGrotesque.variable} font-sans antialiased`}>
+      <body className={`${mainFont.variable} font-sans antialiased`}>
         <IconifySetup />
         <ThemeProvider
           attribute="class"

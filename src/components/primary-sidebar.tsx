@@ -14,10 +14,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar';
-import { Info, Settings } from 'lucide-react';
+import { User } from '@/types/user';
+import {
+  InformationCircleIcon,
+  Settings01Icon
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import SiteLogo from './icon/site-logo';
 import { NavUser } from './nav-user';
-import { User } from '@/types/user';
 
 // This is sample data
 const data = {
@@ -106,7 +110,7 @@ export function PrimarySidebar(props: PrimarySidebarProps) {
                 hidden: false
               }}
             >
-              <Settings className="!size-4" />
+              <HugeiconsIcon icon={Settings01Icon} className="!size-4" />
               {/* <item.icon className="!size-5.5 stroke-[1.5]" /> */}
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -119,7 +123,7 @@ export function PrimarySidebar(props: PrimarySidebarProps) {
                 hidden: false
               }}
             >
-              <Info className="!size-4" />
+              <HugeiconsIcon icon={InformationCircleIcon} className="!size-4" />
               {/* <item.icon className="!size-5.5 stroke-[1.5]" /> */}
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -1,14 +1,5 @@
 'use client';
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles
-} from 'lucide-react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -22,79 +13,95 @@ import {
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar';
 import { User } from '@/types/user';
 import { getInitials } from '@/utils/misc';
-import { logout } from '@/utils/auth.client';
+import {
+  CheckmarkBadge01Icon,
+  CreditCardIcon,
+  Logout01Icon,
+  Settings01Icon,
+  UnfoldMoreIcon
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle
+} from './ui/item';
 
 export function NavUser({ user }: { user: User }) {
-  const { isMobile } = useSidebar();
-
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <SidebarMenuButton
-          size="lg"
-          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground w-8 md:h-8 md:p-0"
-        >
-          <Avatar className="size-8 rounded-lg">
-            {/* Render avatar if image exist */}
-            {user.image && <AvatarImage src={user.image} alt={user.name} />}
-            <AvatarFallback className="rounded-lg">
-              {getInitials(user.name)}
-            </AvatarFallback>
-          </Avatar>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-medium">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
-          </div>
-          <ChevronsUpDown className="ml-auto size-4" />
-        </SidebarMenuButton>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side={isMobile ? 'bottom' : 'right'}
-        align="end"
-        sideOffset={4}
+      <DropdownMenuTrigger
+        className="hover:bg-transparent"
+        render={
+          <SidebarMenuButton
+            size="default"
+            className="hover:ring-accent p-0 hover:ring-4"
+          />
+        }
       >
-        <DropdownMenuLabel className="p-0 font-normal">
-          <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              {user.image && <AvatarImage src={user.image} alt={user.name} />}
-              <AvatarFallback className="rounded-lg">
-                {getInitials(user.name)}
-              </AvatarFallback>
-            </Avatar>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{user.name}</span>
-              <span className="truncate text-xs">{user.email}</span>
-            </div>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <Avatar className="rounded-lg">
+          {/* Render avatar if image exist */}
+          {user.image && (
+            <AvatarImage
+              className="rounded-lg"
+              src={user.image}
+              alt={user.name}
+            />
+          )}
+          <AvatarFallback className="rounded-lg">
+            {getInitials(user.name)}
+          </AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-fit">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Sparkles />
-            Upgrade to Pro
-          </DropdownMenuItem>
+          <DropdownMenuLabel>
+            <Item size="xs">
+              <ItemMedia>
+                <Avatar className="rounded-lg">
+                  {user.image && (
+                    <AvatarImage
+                      src={user.image}
+                      alt={user.name}
+                      className="rounded-lg"
+                    />
+                  )}
+                  <AvatarFallback className="rounded-lg">
+                    {getInitials(user.name)}
+                  </AvatarFallback>
+                </Avatar>
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle className="text-foreground">{user.name}</ItemTitle>
+                <ItemDescription> {user.email}</ItemDescription>
+              </ItemContent>
+            </Item>
+          </DropdownMenuLabel>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <BadgeCheck />
+            <HugeiconsIcon icon={CheckmarkBadge01Icon} />
             Account
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <CreditCard />
+            <HugeiconsIcon icon={CreditCardIcon} />
             Billing
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Bell />
-            Notifications
+            <HugeiconsIcon icon={Settings01Icon} />
+            Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => logout()}>
-          <LogOut />
-          Log out
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <HugeiconsIcon icon={Logout01Icon} />
+            Log out
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

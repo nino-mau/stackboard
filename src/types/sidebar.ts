@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import { IconSvgElement, type HugeiconsIcon } from '@hugeicons/react';
 
 /**
  * A section of the sidebar which represent a page group
@@ -30,7 +30,7 @@ export type SidebarSection = {
 export type SidebarItem = {
   title: string;
   url: string;
-  icon: LucideIcon;
+  icon: IconSvgElement;
   isActive?: boolean;
   subItems?: SidebarSubItem[];
 };

@@ -1,25 +1,14 @@
 'use client';
 
 import {
-  ChevronRight,
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2
-} from 'lucide-react';
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@/components/ui/collapsible';
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -28,18 +17,15 @@ import {
   useSidebar
 } from '@/components/ui/sidebar';
 import type { SidebarSection } from '@/types/sidebar';
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent
-} from '@radix-ui/react-collapsible';
+
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 export default function SidebarNav({
   sections
 }: {
   sections: SidebarSection[];
 }) {
-  const { isMobile } = useSidebar();
   return sections.map((section) => (
     <SidebarGroup
       key={section.label}
@@ -52,69 +38,39 @@ export default function SidebarNav({
             // Item with dropdown menu
             <Collapsible
               key={item.title}
-              asChild
               defaultOpen={item.isActive}
               className="group/collapsible"
+              render={<SidebarMenuItem />}
             >
-              <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {item.subItems?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <a href={subItem.url}>
-                            <span>{subItem.title}</span>
-                          </a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
+              <SidebarMenuButton
+                tooltip={item.title}
+                render={<CollapsibleTrigger />}
+              >
+                <HugeiconsIcon icon={item.icon} /> <span>{item.title}</span>
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  className="ml-auto transition-transform duration-100 group-data-open/collapsible:rotate-90"
+                />
+              </SidebarMenuButton>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {item.subItems?.map((subItem) => (
+                    <SidebarMenuSubItem key={subItem.title}>
+                      <SidebarMenuSubButton render={<a href={subItem.url} />}>
+                        {subItem.title}
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
             </Collapsible>
           ) : (
             // Item without dropdown menu
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
+              <SidebarMenuButton render={<a href={item.url} />}>
+                <HugeiconsIcon icon={item.icon} />
+                {item.title}
               </SidebarMenuButton>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuAction showOnHover>
-                    <MoreHorizontal />
-                    <span className="sr-only">More</span>
-                  </SidebarMenuAction>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-48 rounded-lg"
-                  side={isMobile ? 'bottom' : 'right'}
-                  align={isMobile ? 'end' : 'start'}
-                >
-                  <DropdownMenuItem>
-                    <Folder className="text-muted-foreground" />
-                    <span>View Project</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Forward className="text-muted-foreground" />
-                    <span>Share Project</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Trash2 className="text-muted-foreground" />
-                    <span>Delete Project</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </SidebarMenuItem>
           )
         )}

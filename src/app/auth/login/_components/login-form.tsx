@@ -17,7 +17,7 @@ import { GithubDark } from '@/components/ui/svgs/githubDark';
 import { Gitlab } from '@/components/ui/svgs/gitlab';
 import { Google } from '@/components/ui/svgs/google';
 import { authClient } from '@/lib/auth-client';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -39,7 +39,7 @@ type LoginUserSchema = z.infer<typeof loginUserSchema>;
 
 export function LoginForm() {
   const form = useForm<LoginUserSchema>({
-    resolver: zodResolver(loginUserSchema),
+    resolver: standardSchemaResolver(loginUserSchema),
     mode: 'onChange',
     defaultValues: {
       email: '',
@@ -78,7 +78,7 @@ export function LoginForm() {
   }
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <Card className="w-fit overflow-hidden border-0 bg-transparent p-0">
+      <Card className="w-fit overflow-hidden bg-transparent p-0 ring-0">
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-110 p-6">
             <FieldGroup>

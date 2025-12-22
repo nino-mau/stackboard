@@ -1,4 +1,5 @@
-import { BadgePlus, CirclePlus, DiamondPlus, PartyPopper } from 'lucide-react';
+import { UserSquareIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 type Props = {
   userName: string;
@@ -9,7 +10,10 @@ export default function RegisterSuccessToast({ userName }: Props) {
   return (
     <div className="flex items-center gap-3">
       <div className="bg-primary/10 rounded-md p-2">
-        <DiamondPlus className="text-primary size-5.5" />
+        <HugeiconsIcon
+          icon={UserSquareIcon}
+          className="text-primary size-5.5"
+        />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
