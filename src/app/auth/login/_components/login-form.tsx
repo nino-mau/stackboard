@@ -8,7 +8,7 @@ import {
   FieldDescription,
   FieldError,
   FieldGroup,
-  FieldSeparator
+  FieldSeparator,
 } from '@/components/ui/field';
 import InputFloating from '@/components/ui/input-floating';
 import Link from 'next/link';
@@ -32,7 +32,7 @@ const loginUserSchema = z.object({
   password: z
     .string()
     .min(1, { message: 'Please enter a password' })
-    .min(8, { message: 'Password must be at least 8 characters' })
+    .min(8, { message: 'Password must be at least 8 characters' }),
 });
 
 type LoginUserSchema = z.infer<typeof loginUserSchema>;
@@ -43,8 +43,8 @@ export function LoginForm() {
     mode: 'onChange',
     defaultValues: {
       email: '',
-      password: ''
-    }
+      password: '',
+    },
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,7 @@ export function LoginForm() {
     setIsLoading(true);
     const { error } = await authClient.signIn.email({
       email: formData.email,
-      password: formData.password
+      password: formData.password,
     });
 
     if (error) {
@@ -65,7 +65,7 @@ export function LoginForm() {
       } else {
         // Handle unkown error
         form.setError('email', {
-          message: error.statusText
+          message: error.statusText,
         });
         form.setError('password', { message: '' });
         toast.error(error.statusText);

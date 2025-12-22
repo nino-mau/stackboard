@@ -7,7 +7,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail
+  SidebarRail,
 } from '@/components/ui/sidebar';
 import { sidebarConfig } from '@/config/sidebar';
 import { SidebarSectionType } from '@/types/sidebar';

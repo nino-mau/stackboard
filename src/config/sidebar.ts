@@ -12,9 +12,9 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'Projects',
           url: '#',
-          icon: Layers01Icon
-        }
-      ]
+          icon: Layers01Icon,
+        },
+      ],
     },
     {
       label: 'Projects',
@@ -22,10 +22,10 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'test',
           url: '#',
-          icon: Square01Icon
-        }
-      ]
-    }
+          icon: Square01Icon,
+        },
+      ],
+    },
   ],
   files: [
     {
@@ -34,9 +34,9 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'All Files',
           url: '#',
-          icon: Square01Icon
-        }
-      ]
+          icon: Square01Icon,
+        },
+      ],
     },
     {
       label: 'Files',
@@ -44,9 +44,9 @@ export const sidebarConfig: Record<SidebarSectionType, SidebarSection[]> = {
         {
           title: 'test',
           url: '#',
-          icon: Square01Icon
-        }
-      ]
-    }
-  ]
+          icon: Square01Icon,
+        },
+      ],
+    },
+  ],
 };

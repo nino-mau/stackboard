@@ -10,8 +10,8 @@ export async function logout() {
     fetchOptions: {
       onSuccess: () => {
         window.location.href = '/auth/login';
-      }
-    }
+      },
+    },
   });
 }
 
@@ -21,7 +21,7 @@ export async function logout() {
 export async function loginWithOAuth(provider: 'github' | 'google') {
   if (provider === 'github') {
     await authClient.signIn.social({
-      provider: 'github'
+      provider: 'github',
     });
   }
   return;

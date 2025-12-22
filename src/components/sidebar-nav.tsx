@@ -3,7 +3,7 @@
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
+  CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -14,7 +14,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar
+  useSidebar,
 } from '@/components/ui/sidebar';
 import type { SidebarSection } from '@/types/sidebar';
 
@@ -22,7 +22,7 @@ import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 export default function SidebarNav({
-  sections
+  sections,
 }: {
   sections: SidebarSection[];
 }) {

@@ -8,7 +8,7 @@ type Props = {
 
 export default async function ProjectsPage(props: Props) {
   const session = await auth.api.getSession({
-    headers: await headers()
+    headers: await headers(),
   });
 
   return (

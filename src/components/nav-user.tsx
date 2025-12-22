@@ -8,9 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar';
+import { SidebarMenuButton } from '@/components/ui/sidebar';
 import { User } from '@/types/user';
 import { getInitials } from '@/utils/misc';
 import {
@@ -18,7 +18,6 @@ import {
   CreditCardIcon,
   Logout01Icon,
   Settings01Icon,
-  UnfoldMoreIcon
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
@@ -26,7 +25,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemMedia,
-  ItemTitle
+  ItemTitle,
 } from './ui/item';
 
 export function NavUser({ user }: { user: User }) {

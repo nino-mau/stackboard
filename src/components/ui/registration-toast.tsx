@@ -24,7 +24,7 @@ export default function RegistrationToast({ userName, avatarUrl }: Props) {
             position: 'top-center',
             duration: 5000,
             dismissible: true,
-            id: 'registration-success' // Prevent duplicate toasts
+            id: 'registration-success', // Prevent duplicate toasts
           }
         );
         // Clear the param from URL

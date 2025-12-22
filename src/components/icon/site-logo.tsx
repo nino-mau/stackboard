@@ -7,7 +7,7 @@ type SiteLogoProps = {
 export default function SiteLogo({
   width = 52,
   height = 52,
-  className = ''
+  className = '',
 }: SiteLogoProps) {
   return (
     <svg

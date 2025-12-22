@@ -9,10 +9,10 @@ const nextConfig: NextConfig = {
       {
         source: '/',
         destination: '/projects',
-        permanent: true
-      }
+        permanent: true,
+      },
     ];
-  }
+  },
 };
 
 export default nextConfig;

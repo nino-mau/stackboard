@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
  */
 export async function requireAuth() {
   const session = await auth.api.getSession({
-    headers: await headers()
+    headers: await headers(),
   });
 
   /**
