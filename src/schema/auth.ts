@@ -1,7 +1,10 @@
-import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { pgTable, text, timestamp, boolean, uuid } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
-  id: text('id').primaryKey(),
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`uuidv7()`),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').default(false).notNull(),
@@ -10,11 +13,13 @@ export const user = pgTable('user', {
   updatedAt: timestamp('updated_at')
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
+    .notNull()
 });
 
 export const session = pgTable('session', {
-  id: text('id').primaryKey(),
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`uuidv7()`),
   expiresAt: timestamp('expires_at').notNull(),
   token: text('token').notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -25,11 +30,13 @@ export const session = pgTable('session', {
   userAgent: text('user_agent'),
   userId: text('user_id')
     .notNull()
-    .references(() => user.id, { onDelete: 'cascade' }),
+    .references(() => user.id, { onDelete: 'cascade' })
 });
 
 export const account = pgTable('account', {
-  id: text('id').primaryKey(),
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`uuidv7()`),
   accountId: text('account_id').notNull(),
   providerId: text('provider_id').notNull(),
   userId: text('user_id')
@@ -45,11 +52,13 @@ export const account = pgTable('account', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
+    .notNull()
 });
 
 export const verification = pgTable('verification', {
-  id: text('id').primaryKey(),
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`uuidv7()`),
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: timestamp('expires_at').notNull(),
@@ -57,5 +66,5 @@ export const verification = pgTable('verification', {
   updatedAt: timestamp('updated_at')
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
+    .notNull()
 });
