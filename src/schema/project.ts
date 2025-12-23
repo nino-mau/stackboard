@@ -29,7 +29,7 @@ export const project = pgTable('project', {
   name: text().notNull(),
   description: text(),
   repoUrl: text(),
-  logoType: text(),
+  logoType: projectLogoType().notNull(),
   logoIconName: text(),
   logoEmoji: text(),
   creatorId: uuid('user_id')
