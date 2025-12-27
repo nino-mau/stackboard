@@ -7,12 +7,12 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarRail
 } from '@/components/ui/sidebar';
 import { sidebarConfig } from '@/config/sidebar';
-import { SidebarSectionType } from '@/types/sidebar';
+import { isSidebarType, SidebarType } from '@/types/sidebar';
 import { getSectionName } from '@/utils/misc';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import SidebarNav from './sidebar-nav';
 
 export function SecondarySidebar({
@@ -20,19 +20,36 @@ export function SecondarySidebar({
 }: React.ComponentProps<typeof Sidebar>) {
   const sectionName = getSectionName(usePathname());
 
+  // Redirect to error page if the section name isn't valid
+  if (!isSidebarType(sectionName)) {
+    console.error('[SecondarySidebar] Typecheck of section name failed');
+    redirect('/error');
+  }
+
+  const sidebarData = sidebarConfig[sectionName as SidebarType];
+
   return (
-    <Sidebar collapsible="none" className="hidden flex-1 md:flex" {...props}>
-      <SidebarHeader className="gap-3.5 p-4 pb-2">
+    <Sidebar
+      collapsible="none"
+      className="hidden w-72.5 flex-1 px-3 md:flex"
+      {...props}
+    >
+      <SidebarHeader className="gap-4 px-0 py-2 pb-4">
         <div className="flex w-full flex-col">
-          <p className="text-foreground text-base font-medium">Projects</p>
-          <p className="text-muted-foreground text-xs">Manage your projects</p>
+          <p className="text-foreground text-base font-medium">
+            {sidebarData.header.title}
+          </p>
+          <p className="text-muted-foreground text-xs">
+            {sidebarData.header.description}
+          </p>
         </div>
+
+        {/* Action Button */}
+        {sidebarData.header.actionButton && sidebarData.header.actionButton}
         {/* <SidebarInput placeholder="Type to search..." /> */}
       </SidebarHeader>
       <SidebarContent>
-        <SidebarNav
-          sections={sidebarConfig[sectionName as SidebarSectionType]}
-        />
+        <SidebarNav sections={sidebarData.sections} />
       </SidebarContent>
       <SidebarFooter></SidebarFooter>
       <SidebarRail />

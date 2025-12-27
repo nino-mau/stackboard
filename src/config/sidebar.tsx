@@ -1,0 +1,98 @@
+import { Button } from '@/components/ui/button';
+import { Sidebar, SidebarSection, SidebarType } from '@/types/sidebar';
+import {
+  Layers01Icon,
+  PlusSignIcon,
+  Square01Icon
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Icon } from '@iconify/react';
+
+/**
+ * Sidebar configuration object, each section correspond to a page group
+ */
+export const sidebarConfig: Record<SidebarType, Sidebar> = {
+  projects: {
+    header: {
+      title: 'Project',
+      description: 'Manage your projects',
+      actionButton: (
+        <Button variant="outline">
+          <Icon icon="hugeicons:plus-sign" /> New Project
+        </Button>
+      )
+    },
+    sections: [
+      {
+        label: '',
+        items: [
+          {
+            title: 'Projects',
+            url: '#',
+            icon: Layers01Icon
+          }
+        ]
+      },
+      {
+        label: 'Projects',
+        items: [
+          {
+            title: 'test',
+            url: '#',
+            icon: Square01Icon
+          }
+        ]
+      }
+    ]
+  },
+  files: {
+    header: { title: 'test', description: 'test' },
+    sections: [
+      {
+        label: '',
+        items: [
+          {
+            title: 'Projects',
+            url: '#',
+            icon: Layers01Icon
+          }
+        ]
+      },
+      {
+        label: 'Projects',
+        items: [
+          {
+            title: 'test',
+            url: '#',
+            icon: Square01Icon
+          }
+        ]
+      }
+    ]
+  },
+  test: {
+    header: { title: 'test', description: 'test' },
+    sections: [
+      {
+        label: '',
+        items: [
+          {
+            title: 'Projects',
+            url: '#',
+            icon: Layers01Icon
+          }
+        ]
+      },
+      {
+        label: 'Projects',
+        items: [
+          {
+            title: 'test',
+            url: '#',
+            icon: Square01Icon
+          }
+        ]
+      }
+    ]
+  }
+};

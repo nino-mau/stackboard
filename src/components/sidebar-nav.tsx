@@ -3,7 +3,7 @@
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
+  CollapsibleTrigger
 } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -14,7 +14,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar,
+  useSidebar
 } from '@/components/ui/sidebar';
 import type { SidebarSection } from '@/types/sidebar';
 
@@ -22,16 +22,18 @@ import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 export default function SidebarNav({
-  sections,
+  sections
 }: {
   sections: SidebarSection[];
 }) {
   return sections.map((section) => (
     <SidebarGroup
       key={section.label}
-      className="group-data-[collapsible=icon]:hidden"
+      className="px-0 group-data-[collapsible=icon]:hidden"
     >
-      {section.label && <SidebarGroupLabel>{section.label}</SidebarGroupLabel>}
+      {section.label && (
+        <SidebarGroupLabel className="px-0">{section.label}</SidebarGroupLabel>
+      )}
       <SidebarMenu>
         {section.items.map((item) =>
           item.subItems ? (

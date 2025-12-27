@@ -1,23 +1,37 @@
-import { IconSvgElement, type HugeiconsIcon } from '@hugeicons/react';
+import { Button } from '@/components/ui/button';
+import { IconSvgElement } from '@hugeicons/react';
+import { ComponentProps, ReactElement } from 'react';
 
 /**
  * A section of the sidebar which represent a page group
  */
-export type SidebarSectionType = 'projects' | 'files';
+export type SidebarType = 'projects' | 'files' | 'test';
 
-export const SIDEBAR_SECTIONS: SidebarSectionType[] = ['projects', 'files'];
+export const SIDEBAR_SECTIONS: SidebarType[] = ['projects', 'files', 'test'];
 
 /**
- * Typeguard for SidebarSectionType
+ * Typeguard for SidebarType
  */
-export function isSidebarSectionType(
-  value: string
-): value is SidebarSectionType {
-  return SIDEBAR_SECTIONS.includes(value as SidebarSectionType);
+export function isSidebarType(value: string): value is SidebarType {
+  return SIDEBAR_SECTIONS.includes(value as SidebarType);
 }
 
+export type Sidebar = {
+  header: SidebarHeader;
+  sections: SidebarSection[];
+};
+
 /**
- * Section of the secondary siderbar, correspond to a page group
+ * Header of the sidebar
+ */
+export type SidebarHeader = {
+  title: string;
+  description: string;
+  actionButton?: ReactElement<ComponentProps<typeof Button>>;
+};
+
+/**
+ * Section of the sidebar
  */
 export type SidebarSection = {
   label: string;
@@ -25,7 +39,7 @@ export type SidebarSection = {
 };
 
 /**
- * Item of the sidebar
+ * Item of a sidebar section
  */
 export type SidebarItem = {
   title: string;
