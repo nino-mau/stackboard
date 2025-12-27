@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  text,
-  uuid,
-  varchar,
-  timestamp,
-  pgEnum
-} from 'drizzle-orm/pg-core';
+import { pgTable, text, uuid, timestamp, pgEnum } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 import { user } from './auth';
 
@@ -26,12 +19,12 @@ export const project = pgTable('project', {
   id: uuid('id')
     .primaryKey()
     .default(sql`uuidv7()`),
-  name: text().notNull(),
-  description: text(),
-  repoUrl: text(),
-  logoType: projectLogoType().notNull(),
-  logoIconName: text(),
-  logoEmoji: text(),
+  name: text('name').notNull(),
+  description: text('description'),
+  repoUrl: text('repo_url'),
+  logoType: projectLogoType('logo_type').default('icon').notNull(),
+  logoIconName: text('logo_icon_name'),
+  logoEmoji: text('logo_emoji'),
   creatorId: uuid('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),

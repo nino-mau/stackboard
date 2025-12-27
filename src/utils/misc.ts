@@ -1,5 +1,3 @@
-import { SidebarSectionType } from '@/types/sidebar';
-
 /**
  * Get name from email
  */
@@ -50,7 +48,8 @@ export function getPageName(pathname: string): string {
 }
 
 /**
- * Get name of the current section from pathname
+ * Get name of the current section from pathname (section for projects/project/1
+ * is projects)
  */
 export function getSectionName(pathname: string): string {
   return pathname.split('/').at(1) ?? '';
