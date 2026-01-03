@@ -38,6 +38,5 @@ export const projectTag = pgTable('project_tag', {
     .references(() => project.id, { onDelete: 'cascade' }),
   tagId: uuid('tag_id')
     .notNull()
-    .references(() => tag.id, { onDelete: 'cascade' }),
-  ...timestamps
+    .references(() => tag.id, { onDelete: 'cascade' })
 });
