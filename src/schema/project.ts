@@ -1,17 +1,7 @@
-import { pgTable, text, uuid, timestamp, pgEnum } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { pgEnum, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { user } from './auth';
-
-/**
- * Timestamp columns
- */
-const timestamps = {
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at')
-    .notNull()
-    .defaultNow()
-    .$onUpdate(() => new Date())
-};
+import { timestamps } from './timestamp';
 
 export const projectLogoType = pgEnum('projectLogoType', ['icon', 'emoji']);
 
