@@ -2,6 +2,7 @@ import { sql } from 'drizzle-orm';
 import { pgEnum, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { user } from './auth';
 import { timestamps } from './timestamp';
+import { tag } from './tag';
 
 export const projectLogoType = pgEnum('projectLogoType', ['icon', 'emoji']);
 
@@ -28,5 +29,15 @@ export const projectPage = pgTable('project_page', {
   projectId: uuid('project_id')
     .notNull()
     .references(() => project.id, { onDelete: 'cascade' }),
+  ...timestamps
+});
+
+export const projectTag = pgTable('project_tag', {
+  projectId: uuid('project_id')
+    .notNull()
+    .references(() => project.id, { onDelete: 'cascade' }),
+  tagId: uuid('tag_id')
+    .notNull()
+    .references(() => tag.id, { onDelete: 'cascade' }),
   ...timestamps
 });
