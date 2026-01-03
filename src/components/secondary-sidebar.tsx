@@ -34,7 +34,7 @@ export function SecondarySidebar({
       className="hidden w-72.5 flex-1 px-3 md:flex"
       {...props}
     >
-      <SidebarHeader className="gap-4 px-0 py-2 pb-4">
+      <SidebarHeader className="gap-4 px-0 py-2 pt-3 pb-4">
         <div className="flex w-full flex-col">
           <p className="text-foreground text-base font-medium">
             {sidebarData.header.title}
