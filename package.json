@@ -7,6 +7,7 @@
     "dev": "next dev",
     "db:push": "docker compose exec nextjs pnpm drizzle-kit push",
     "drizzle-studio": "pnpm drizzle-kit studio --verbose --config ./drizzle-studio.config.ts",
+    "svgr:convert": "pnpm exec svgr --typescript --out-dir ./src/assets/icons/ ./icons",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -41,6 +42,7 @@
     "@iconify-json/hugeicons": "^1.2.20",
     "@iconify-json/solar": "^1.2.5",
     "@iconify/react": "^6.0.2",
+    "@svgr/cli": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.16.0",
