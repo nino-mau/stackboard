@@ -81,6 +81,15 @@ function NewProjectForm() {
       .string()
       .max(200, 'Description must be at most 200 characters.')
       .optional(),
+    tags: z
+      .array(
+        z.object({
+          id: z.string(),
+          name: z.string(),
+          color: z.string()
+        })
+      )
+      .optional(),
     repoUrl: z
       .string()
       .optional()
@@ -130,6 +139,7 @@ function NewProjectForm() {
     name: '',
     description: '',
     repoUrl: '',
+    tags: []
   };
 
   const form = useForm({
@@ -218,6 +228,24 @@ function NewProjectForm() {
           }}
         </form.Field>
         {/* Project Tags */}
+        <form.Field name="tags">
+          {(field) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid;
+            return (
+              <Field data-invalid={isInvalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Tags
+                  <span className="text-muted-foreground font-normal">
+                    (optional)
+                  </span>
+                </FieldLabel>
+                <ProjectTagCombobox />
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              </Field>
+            );
+          }}
+        </form.Field>
         {/* Project Repo Url */}
         <form.Field name="repoUrl">
           {(field) => {

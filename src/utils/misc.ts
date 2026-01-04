@@ -54,3 +54,17 @@ export function getPageName(pathname: string): string {
 export function getSectionName(pathname: string): string {
   return pathname.split('/').at(1) ?? '';
 }
+
+/**
+ * Get random array item
+ */
+export function getRandomItem<T>(items: T[]): T {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+/**
+ * Generate uuid v4
+ */
+export function getUUID() {
+  return crypto.randomUUID();
+}
