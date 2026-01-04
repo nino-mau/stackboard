@@ -62,6 +62,11 @@ export default function NewProjectModal(props: NewProjectModalProps) {
 }
 
 function NewProjectForm() {
+  const [isRepoUrlValid, setIsRepoUrlValid] = useState<boolean | undefined>(
+    undefined
+  );
+  const [isRepoUrlValidationLoading, setIsRepoUrlValidationLoading] =
+    useState(false);
 
   /**
    * Zod schema for the New Project form
@@ -76,6 +81,45 @@ function NewProjectForm() {
       .string()
       .max(200, 'Description must be at most 200 characters.')
       .optional(),
+    repoUrl: z
+      .string()
+      .optional()
+      .superRefine(async (url, ctx) => {
+        if (!url || url === defaultValues.repoUrl) {
+          setIsRepoUrlValid(false);
+          return;
+        }
+
+        // Validate URL format
+        const urlResult = z.url({ hostname: /^github\.com$/ }).safeParse(url);
+        if (!urlResult.success) {
+          setIsRepoUrlValid(false);
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Invalid URL format'
+          });
+          return;
+        }
+
+        /**
+         * Check if a repository exist for the url, controls a loading state on
+         * the repo url input
+         */
+        try {
+          setIsRepoUrlValidationLoading(true);
+          if (!(await validateGithubRepoUrl(url))) {
+            setIsRepoUrlValid(false);
+            ctx.addIssue({
+              code: 'custom',
+              message: 'Repository not found'
+            });
+          } else {
+            setIsRepoUrlValid(true);
+          }
+        } finally {
+          setIsRepoUrlValidationLoading(false);
+        }
+      })
   });
 
   /**
@@ -85,6 +129,7 @@ function NewProjectForm() {
     logo: undefined,
     name: '',
     description: '',
+    repoUrl: '',
   };
 
   const form = useForm({
@@ -173,6 +218,59 @@ function NewProjectForm() {
           }}
         </form.Field>
         {/* Project Tags */}
+        {/* Project Repo Url */}
+        <form.Field name="repoUrl">
+          {(field) => {
+            const isInvalid =
+              !field.state.meta.isDefaultValue && !field.state.meta.isValid;
+            return (
+              <Field data-invalid={isInvalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Github Repository
+                  <span className="text-muted-foreground font-normal">
+                    (optional)
+                  </span>
+                </FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                    placeholder="https://github.com/"
+                    autoComplete="off"
+                  />
+                  <InputGroupAddon className="text-muted-foreground pr-1">
+                    <Icon icon="hugeicons:github" />
+                  </InputGroupAddon>
+                  {/* Validation status icon */}
+                  {field.state.value !== defaultValues.repoUrl && (
+                    <InputGroupAddon align="inline-end">
+                      {isRepoUrlValidationLoading ? (
+                        <Spinner />
+                      ) : isRepoUrlValid ? (
+                        <CheckmarkCircle01 size={16} className="text-success" />
+                      ) : !isRepoUrlValid &&
+                        typeof isRepoUrlValid === 'boolean' ? (
+                        <RemoveCircle size={16} className="text-destructive" />
+                      ) : (
+                        <></>
+                      )}
+                    </InputGroupAddon>
+                  )}
+                </InputGroup>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                {!isInvalid && isRepoUrlValid && (
+                  <FieldDescription className="text-success">
+                    The repository was found.
+                  </FieldDescription>
+                )}
+              </Field>
+            );
+          }}
+        </form.Field>
       </FieldGroup>
       <Field orientation="horizontal" className="mt-8 justify-end">
         <Button type="submit" form="bug-report-form" size="lg">
