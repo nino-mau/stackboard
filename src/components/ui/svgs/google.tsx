@@ -3,11 +3,13 @@ import type { SVGProps } from 'react';
 const Google = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
+    role="img"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     xmlSpace="preserve"
     overflow="hidden"
     viewBox="0 0 268.152 273.883"
   >
+    <title>Google's Logo</title>
     <defs>
       <linearGradient id="a">
         <stop offset="0" stopColor="#0fbc5c" />

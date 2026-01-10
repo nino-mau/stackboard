@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenuButton } from '@/components/ui/sidebar';
-import { User } from '@/types/user';
+import type { User } from '@/types/user';
 import { getInitials } from '@/utils/misc';
 import {
   CheckmarkBadge01Icon,
@@ -36,7 +36,7 @@ export function NavUser({ user }: { user: User }) {
         render={
           <SidebarMenuButton
             size="default"
-            className="hover:ring-accent p-0 hover:ring-4"
+            className="p-0 hover:ring-4 hover:ring-accent"
           />
         }
       >

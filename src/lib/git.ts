@@ -10,7 +10,7 @@ export async function isGithubRepoValid(url: string) {
     const response = await fetch(
       `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}`,
       {
-        method: 'HEAD'
+        method: 'HEAD',
       }
     );
 

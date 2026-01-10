@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { IconSvgElement } from '@hugeicons/react';
-import { ComponentProps, ReactElement } from 'react';
+import type { Button } from '@/components/ui/button';
+import type { IconSvgElement } from '@hugeicons/react';
+import type { ComponentProps, ReactElement } from 'react';
 
 /**
  * A section of the sidebar which represent a page group

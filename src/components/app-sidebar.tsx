@@ -1,9 +1,7 @@
-'use client';
-
 import { Sidebar } from '@/components/ui/sidebar';
+import type { User } from '@/types/user';
 import { PrimarySidebar } from './primary-sidebar';
 import { SecondarySidebar } from './secondary-sidebar';
-import { User } from '@/types/user';
 
 type AppSidebarProps = {
   user: User;

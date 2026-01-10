@@ -1,9 +1,12 @@
 'use client';
 
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Link } from '@tanstack/react-router';
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
+  CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -14,15 +17,11 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar
 } from '@/components/ui/sidebar';
 import type { SidebarSection } from '@/types/sidebar';
 
-import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
-
 export default function SidebarNav({
-  sections
+  sections,
 }: {
   sections: SidebarSection[];
 }) {
@@ -32,7 +31,7 @@ export default function SidebarNav({
       className="px-0 group-data-[collapsible=icon]:hidden"
     >
       {section.label && (
-        <SidebarGroupLabel className="px-0">{section.label}</SidebarGroupLabel>
+        <SidebarGroupLabel className="px-2">{section.label}</SidebarGroupLabel>
       )}
       <SidebarMenu>
         {section.items.map((item) =>
@@ -48,7 +47,8 @@ export default function SidebarNav({
                 tooltip={item.title}
                 render={<CollapsibleTrigger />}
               >
-                <HugeiconsIcon icon={item.icon} /> <span>{item.title}</span>
+                <HugeiconsIcon icon={item.icon} className="" />
+                <span>{item.title}</span>
                 <HugeiconsIcon
                   icon={ArrowRight01Icon}
                   className="ml-auto transition-transform duration-100 group-data-open/collapsible:rotate-90"
@@ -58,7 +58,7 @@ export default function SidebarNav({
                 <SidebarMenuSub>
                   {item.subItems?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton render={<a href={subItem.url} />}>
+                      <SidebarMenuSubButton render={<Link to={subItem.url} />}>
                         {subItem.title}
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
@@ -69,9 +69,9 @@ export default function SidebarNav({
           ) : (
             // Item without dropdown menu
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton render={<a href={item.url} />}>
-                <HugeiconsIcon icon={item.icon} />
-                {item.title}
+              <SidebarMenuButton render={<Link to={item.url} />}>
+                <HugeiconsIcon icon={item.icon} className="" />
+                <p className="">{item.title}</p>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )

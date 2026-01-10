@@ -1,20 +1,28 @@
-'use client';
-
-import { CheckmarkCircle01, RemoveCircle } from '@/assets/icons';
+import {
+  AddSquareIcon,
+  Cancel01Icon,
+  Github,
+  PackageAddIcon,
+  SquareIcon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { useForm } from '@tanstack/react-form';
+import { useQuery } from '@tanstack/react-query';
+import { useId, useState } from 'react';
+import { toast } from 'sonner';
+import z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
-  FieldLabel
+  FieldLabel,
 } from '@/components/ui/field';
-import { validateGithubRepoUrl } from '@/server/actions/git';
-import { Icon } from '@iconify/react';
-import { useForm } from '@tanstack/react-form';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import z from 'zod';
+import { validateGithubRepoUrl } from '@/server/functions/git';
+import { tagsQueryOptions } from '@/server/queries/tags';
+import { CheckmarkCircle01 } from './icon';
+import RemoveCircle from './icon/RemoveCircle';
 import ProjectTagCombobox from './ui/combobox/project-tag-combobox';
 import { Dialog, DialogClose, DialogContent, DialogHeader } from './ui/dialog';
 import { Input } from './ui/input';
@@ -22,12 +30,12 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-  InputGroupTextarea
+  InputGroupTextarea,
 } from './ui/input-group';
 import { Spinner } from './ui/spinner';
 
 type NewProjectModalProps = {
-  test: string;
+  test?: string;
 };
 
 export default function NewProjectModal(props: NewProjectModalProps) {
@@ -42,13 +50,13 @@ export default function NewProjectModal(props: NewProjectModalProps) {
       >
         <DialogHeader className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center gap-2">
-            <Icon icon="hugeicons:package-add" className="size-4.75" />
-            <h1 className="text-base font-medium">New Project</h1>
+            <HugeiconsIcon icon={PackageAddIcon} className="size-4.75" />
+            <h1 className="font-medium text-base">New Project</h1>
           </div>
           <DialogClose
             render={
               <Button variant="ghost" size="icon-sm">
-                <Icon icon="hugeicons:cancel-01" />
+                <HugeiconsIcon icon={Cancel01Icon} />
               </Button>
             }
           />
@@ -62,6 +70,8 @@ export default function NewProjectModal(props: NewProjectModalProps) {
 }
 
 function NewProjectForm() {
+  const formId = useId();
+
   const [isRepoUrlValid, setIsRepoUrlValid] = useState<boolean | undefined>(
     undefined
   );
@@ -86,7 +96,7 @@ function NewProjectForm() {
         z.object({
           id: z.string(),
           name: z.string(),
-          color: z.string()
+          color: z.string(),
         })
       )
       .optional(),
@@ -105,7 +115,7 @@ function NewProjectForm() {
           setIsRepoUrlValid(false);
           ctx.addIssue({
             code: 'custom',
-            message: 'Invalid URL format'
+            message: 'Invalid URL format',
           });
           return;
         }
@@ -116,19 +126,20 @@ function NewProjectForm() {
          */
         try {
           setIsRepoUrlValidationLoading(true);
-          if (!(await validateGithubRepoUrl(url))) {
+          const isRepoValid = await validateGithubRepoUrl({ data: url });
+          if (isRepoValid) {
+            setIsRepoUrlValid(true);
+          } else {
             setIsRepoUrlValid(false);
             ctx.addIssue({
               code: 'custom',
-              message: 'Repository not found'
+              message: 'Repository not found',
             });
-          } else {
-            setIsRepoUrlValid(true);
           }
         } finally {
           setIsRepoUrlValidationLoading(false);
         }
-      })
+      }),
   });
 
   /**
@@ -139,23 +150,24 @@ function NewProjectForm() {
     name: '',
     description: '',
     repoUrl: '',
-    tags: []
+    tags: [],
   };
 
   const form = useForm({
     defaultValues,
     validators: {
       onChangeAsync: newProjectSchema,
-      onSubmitAsync: newProjectSchema
+      onSubmitAsync: newProjectSchema,
     },
     onSubmit: async ({ value }) => {
+      console.log(value);
       toast.success('Form submitted successfully');
-    }
+    },
   });
 
   return (
     <form
-      id="new-project-form"
+      id={formId}
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -174,7 +186,7 @@ function NewProjectForm() {
                     variant="outline"
                     className="size-9!"
                   >
-                    <Icon icon="hugeicons:square" />
+                    <HugeiconsIcon icon={SquareIcon} />
                   </Button>
                 </Field>
               );
@@ -236,7 +248,7 @@ function NewProjectForm() {
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>
                   Tags
-                  <span className="text-muted-foreground font-normal">
+                  <span className="font-normal text-muted-foreground">
                     (optional)
                   </span>
                 </FieldLabel>
@@ -255,7 +267,7 @@ function NewProjectForm() {
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>
                   Github Repository
-                  <span className="text-muted-foreground font-normal">
+                  <span className="font-normal text-muted-foreground">
                     (optional)
                   </span>
                 </FieldLabel>
@@ -270,8 +282,8 @@ function NewProjectForm() {
                     placeholder="https://github.com/"
                     autoComplete="off"
                   />
-                  <InputGroupAddon className="text-muted-foreground pr-1">
-                    <Icon icon="hugeicons:github" />
+                  <InputGroupAddon className="pr-1 text-muted-foreground">
+                    <HugeiconsIcon icon={Github} />
                   </InputGroupAddon>
                   {/* Validation status icon */}
                   {field.state.value !== defaultValues.repoUrl && (
@@ -301,9 +313,8 @@ function NewProjectForm() {
         </form.Field>
       </FieldGroup>
       <Field orientation="horizontal" className="mt-8 justify-end">
-        <Button type="submit" form="bug-report-form" size="lg">
-          {/* <HugeiconsIcon icon={AddCircleIcon} strokeWidth={2} /> */}
-          <Icon icon="hugeicons:add-square" className="[&_path]:stroke-[2px]" />
+        <Button type="submit" form={formId} size="lg">
+          <HugeiconsIcon icon={AddSquareIcon} className="stroke-2" />
           Create
         </Button>
         <Button

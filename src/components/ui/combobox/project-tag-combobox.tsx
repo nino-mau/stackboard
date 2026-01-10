@@ -1,5 +1,7 @@
-'use client';
-
+import { Add01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import {
   Combobox,
   ComboboxChip,
@@ -8,43 +10,20 @@ import {
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
-  useComboboxAnchor
+  useComboboxAnchor,
 } from '@/components/ui/combobox';
 import { TAG_COLORS } from '@/config/tag';
-import { TagItem } from '@/types/tag';
+import { tagsQueryOptions } from '@/server/queries/tags';
+import type { TagItem } from '@/types/tag';
 import { getRandomItem, getUUID } from '@/utils/misc';
-import { Icon } from '@iconify/react';
-import React, { useEffect, useState } from 'react';
 import { ComboboxChipsInput, ComboboxContent } from '../combobox';
-import { getTags } from '@/server/actions/tag';
 
 type ProjectTagComboboxProps = {
-  tags?: TagItem[];
+  value?: TagItem[];
+  onChange?: (tags: TagItem[]) => void;
+  name?: string;
+  id?: string;
 };
-
-// const tags: Array<TagItem> = [
-//   {
-//     id: 'tag1',
-//     name: 'tag1',
-//     color: getRandomItem<string>(TAG_COLORS)
-//   },
-//   {
-//     id: 'tag2',
-//     name: 'tag2',
-//     color: getRandomItem<string>(TAG_COLORS)
-//   },
-//   {
-//     id: 'tag3',
-//     name: 'tag3',
-//     color: getRandomItem<string>(TAG_COLORS)
-//   },
-//   {
-//     id: 'tag4',
-//     name: 'tag4',
-//     color: getRandomItem<string>(TAG_COLORS)
-//   },
-//   { id: 'tag5', name: 'tag5', color: getRandomItem<string>(TAG_COLORS) }
-// ];
 
 export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
   /**
@@ -53,24 +32,9 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
   const [inputValue, setInputValue] = useState<string>('');
 
   /**
-   * Value of tags selected in the combobox
+   * Created tags listed by combobox
    */
-  const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
-
-  /**
-   * Value of tags listed by combobox
-   */
-  const [tags, setTags] = useState<TagItem[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      // fetch tags to be listed
-      const res = await getTags();
-      setTags(res);
-    }
-
-    fetchData();
-  }, []);
+  const [createdTags, setCreatedTags] = useState<TagItem[]>([]);
 
   /**
    * Determine when to show "create tag" option
@@ -81,15 +45,20 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
     return inputValue !== '' && isInputUnique;
   };
 
-  const items: TagItem[] = isCreateOptionShown()
+  // Fetch tags
+  const { data: fetchedTags } = useQuery(tagsQueryOptions());
+
+  const tags = [...(fetchedTags ?? []), ...createdTags];
+
+  const tagItems: TagItem[] = isCreateOptionShown()
     ? [
         ...tags,
         {
           isCreatable: true,
           id: getUUID(),
           name: inputValue,
-          color: getRandomItem<string>(TAG_COLORS)
-        }
+          color: getRandomItem<string>(TAG_COLORS),
+        },
       ]
     : tags;
 
@@ -99,8 +68,10 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
     <Combobox
       multiple
       autoHighlight
-      items={items}
-      value={selectedTags}
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      items={tagItems}
       inputValue={inputValue}
       onInputValueChange={setInputValue}
       onValueChange={(tags) => {
@@ -109,12 +80,11 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
         // Handle created tag
         if (hasCreatable.length) {
           const isCreatableIndex = tags.findIndex((tag) => tag.isCreatable);
-          tags[isCreatableIndex].isCreatable = false;
+          tags[isCreatableIndex].isCreatable = undefined;
 
-          // Add created tag to the combobox listed tags
-          setTags((prev) => [...prev, tags[isCreatableIndex]]);
+          setCreatedTags((prev) => [...prev, tags[isCreatableIndex]]);
         }
-        setSelectedTags(tags);
+        props.onChange?.(tags);
       }}
     >
       <ComboboxChips ref={anchor}>
@@ -124,7 +94,7 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
               {values.map((value) => (
                 <ComboboxChip key={value.id}>
                   <div
-                    className="mr-1 size-2 rounded-full"
+                    className="mr-1 flex size-2 flex-5 rounded-full"
                     style={{ backgroundColor: value.color }}
                   />
                   {value.name}
@@ -142,7 +112,7 @@ export default function ProjectTagCombobox(props: ProjectTagComboboxProps) {
             item.isCreatable ? (
               <ComboboxItem key={item.id} value={item}>
                 <span className="col-start-1">
-                  <Icon icon="hugeicons:add-01" className="size-3" />
+                  <HugeiconsIcon icon={Add01Icon} className="size-3" />
                 </span>
                 <div className="col-start-2">{item.name}</div>
               </ComboboxItem>

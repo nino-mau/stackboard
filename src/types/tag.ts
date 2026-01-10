@@ -1,5 +1,5 @@
-import { tag } from '@/schema/tag';
-import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import type { tag } from '@/schema/tag';
+import { InferInsertModel, type InferSelectModel } from 'drizzle-orm';
 
 // export type Tag = {
 //   id: string;

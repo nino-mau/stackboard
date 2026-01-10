@@ -1,29 +1,29 @@
-'use client';
-
-import * as React from 'react';
-
+import { redirect, useLocation } from '@tanstack/react-router';
+import type * as React from 'react';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail
+  SidebarRail,
 } from '@/components/ui/sidebar';
 import { sidebarConfig } from '@/config/sidebar';
-import { isSidebarType, SidebarType } from '@/types/sidebar';
+import { isSidebarType, type SidebarType } from '@/types/sidebar';
 import { getSectionName } from '@/utils/misc';
-import { redirect, usePathname } from 'next/navigation';
 import SidebarNav from './sidebar-nav';
 
 export function SecondarySidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const sectionName = getSectionName(usePathname());
+  const pathname = useLocation({
+    select: (location) => location.pathname,
+  });
+  const sectionName = getSectionName(pathname);
 
   // Redirect to error page if the section name isn't valid
   if (!isSidebarType(sectionName)) {
     console.error('[SecondarySidebar] Typecheck of section name failed');
-    redirect('/error');
+    redirect({ to: '/error' });
   }
 
   const sidebarData = sidebarConfig[sectionName as SidebarType];
@@ -31,12 +31,12 @@ export function SecondarySidebar({
   return (
     <Sidebar
       collapsible="none"
-      className="hidden w-72.5 flex-1 px-3 md:flex"
+      className="hidden w-60 flex-1 px-2 md:flex"
       {...props}
     >
-      <SidebarHeader className="gap-4 px-0 py-2 pt-3 pb-4">
+      <SidebarHeader className="gap-4 px-2 py-2 pt-3 pb-4">
         <div className="flex w-full flex-col">
-          <p className="text-foreground text-base font-medium">
+          <p className="font-medium text-base text-foreground">
             {sidebarData.header.title}
           </p>
           <p className="text-muted-foreground text-xs">

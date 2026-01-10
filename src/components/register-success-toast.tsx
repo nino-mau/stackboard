@@ -1,4 +1,4 @@
-import { UserSquareIcon } from '@hugeicons/core-free-icons';
+import { Blockchain01Icon, UserSquareIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 type Props = {
@@ -9,18 +9,18 @@ type Props = {
 export default function RegisterSuccessToast({ userName }: Props) {
   return (
     <div className="flex items-center gap-3">
-      <div className="bg-primary/10 rounded-md p-2">
+      <div className="rounded-md bg-primary/10 p-2">
         <HugeiconsIcon
-          icon={UserSquareIcon}
-          className="text-primary size-5.5"
+          icon={Blockchain01Icon}
+          className="size-5.5 text-primary"
         />
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <p className="text-foreground text-sm font-normal">
-          Welcome, <span className="font-bold">{userName}</span> !
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <p className="font-normal text-foreground text-sm leading-none">
+          Welcome, <span className="font-bold">{userName} !</span>
         </p>
-        <p className="text-muted-foreground text-xs">
+        <p className="pb-0.5 text-muted-foreground text-xs leading-none">
           Workspace created successfully.
         </p>
       </div>

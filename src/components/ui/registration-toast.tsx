@@ -1,7 +1,5 @@
-'use client';
-
+import { useSearch } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import RegisterSuccessToast from '@/components/register-success-toast';
 
@@ -11,29 +9,29 @@ type Props = {
 };
 
 export default function RegistrationToast({ userName, avatarUrl }: Props) {
-  const searchParams = useSearchParams();
+  const search = useSearch({ strict: false });
+  const registered = (search as { registered?: boolean })?.registered;
 
   useEffect(() => {
-    const registered = searchParams.get('registered');
-
-    if (registered === 'true' && userName) {
+    if (registered && userName) {
+      console.log('test');
       const timeoutId = setTimeout(() => {
         toast(
           <RegisterSuccessToast userName={userName} avatarUrl={avatarUrl} />,
           {
             position: 'top-center',
-            duration: 5000,
+            duration: 10000000,
             dismissible: true,
             id: 'registration-success', // Prevent duplicate toasts
           }
         );
         // Clear the param from URL
         window.history.replaceState({}, '', window.location.pathname);
-      }, 300);
+      }, 0);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [searchParams, userName, avatarUrl]);
+  }, [registered, userName, avatarUrl]);
 
   return null;
 }
