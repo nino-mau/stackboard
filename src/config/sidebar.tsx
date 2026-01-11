@@ -1,9 +1,5 @@
 import {
   Blockchain01Icon,
-  Blockchain02Icon,
-  Blockchain03Icon,
-  Blockchain04Icon,
-  DashboardSquare01Icon,
   Layers01Icon,
   PlusSignIcon,
   Square01Icon,
@@ -21,7 +17,7 @@ export const sidebarConfig: Record<SidebarType, Sidebar> = {
       title: 'Project',
       description: 'Manage your projects',
       actionButton: (
-        <Button variant="outline">
+        <Button variant="outline" className="w-full">
           <HugeiconsIcon icon={PlusSignIcon} />
           New Project
         </Button>

@@ -31,10 +31,10 @@ export function SecondarySidebar({
   return (
     <Sidebar
       collapsible="none"
-      className="hidden w-60 flex-1 px-2 md:flex"
+      className="hidden w-60 flex-1 border-r md:flex"
       {...props}
     >
-      <SidebarHeader className="gap-4 px-2 py-2 pt-3 pb-4">
+      <SidebarHeader className="h-17 justify-center gap-4 border-b px-4 py-0!">
         <div className="flex w-full flex-col">
           <p className="font-medium text-base text-foreground">
             {sidebarData.header.title}
@@ -43,12 +43,13 @@ export function SecondarySidebar({
             {sidebarData.header.description}
           </p>
         </div>
-
-        {/* Action Button */}
-        {sidebarData.header.actionButton && sidebarData.header.actionButton}
-        {/* <SidebarInput placeholder="Type to search..." /> */}
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="pt-4">
+        <div className="px-4">
+          {/* Action Button */}
+          {sidebarData.header.actionButton && sidebarData.header.actionButton}
+        </div>
+        {/* <SidebarInput placeholder="Type to search..." /> */}
         <SidebarNav sections={sidebarData.sections} />
       </SidebarContent>
       <SidebarFooter></SidebarFooter>

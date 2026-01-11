@@ -28,7 +28,7 @@ export default function SidebarNav({
   return sections.map((section) => (
     <SidebarGroup
       key={section.label}
-      className="px-0 group-data-[collapsible=icon]:hidden"
+      className="px-2 group-data-[collapsible=icon]:hidden"
     >
       {section.label && (
         <SidebarGroupLabel className="px-2">{section.label}</SidebarGroupLabel>

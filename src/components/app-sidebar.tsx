@@ -11,7 +11,7 @@ export function AppSidebar(props: AppSidebarProps) {
   return (
     <Sidebar
       collapsible="icon"
-      className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      className="overflow-hidden border-r-0! *:data-[sidebar=sidebar]:flex-row"
     >
       <PrimarySidebar user={props.user} />
 
