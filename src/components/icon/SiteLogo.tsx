@@ -14,7 +14,7 @@ export default function SiteLogo({
       width={width}
       height={height}
       className={className}
-      viewBox="0 0 52 52"
+      viewBox="0 0 52 60"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

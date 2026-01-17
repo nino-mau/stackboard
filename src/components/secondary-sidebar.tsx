@@ -34,12 +34,12 @@ export function SecondarySidebar({
       className="hidden w-60 flex-1 border-r md:flex"
       {...props}
     >
-      <SidebarHeader className="h-17 justify-center gap-4 border-b px-4 py-0!">
-        <div className="flex w-full flex-col">
-          <p className="font-medium text-base text-foreground">
+      <SidebarHeader className="h-(--header-height) justify-center gap-4 border-b px-4 py-0!">
+        <div className="mb-0.5 flex w-full flex-col">
+          <p className="font-normal text-base text-foreground">
             {sidebarData.header.title}
           </p>
-          <p className="text-muted-foreground text-xs">
+          <p className="mt-0.5 text-muted-foreground text-xs">
             {sidebarData.header.description}
           </p>
         </div>
