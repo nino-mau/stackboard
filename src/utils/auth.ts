@@ -1,22 +1,25 @@
-import { auth } from '@/lib/auth';
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { redirect } from '@tanstack/react-router';
+import { authClient } from '@/lib/auth-client';
 
 /**
- * Redirect user with invalid session to register page
+ * Logout user and redirect them to login page
  */
-export async function requireAuth() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
+export async function logout() {
+  await authClient.signOut({
+    fetchOptions: {
+      onSuccess: () => {
+        redirect({ to: '/auth/login' });
+      },
+    },
   });
+}
 
-  /**
-   * Auth Check
-   */
-  if (!session) {
-    console.log(
-      '[utils:requireAuth()] Auth check failed, Redirecting to register page...'
-    );
-    redirect('/auth/register');
-  }
+/**
+ * Login with specified oauth provider
+ */
+export async function loginWithOAuth(provider: 'github' | 'google') {
+  await authClient.signIn.social({
+    provider,
+    callbackURL: '/projects',
+  });
 }

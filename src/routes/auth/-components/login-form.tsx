@@ -19,11 +19,8 @@ import { GithubDark } from '@/components/ui/svgs/githubDark';
 import { Gitlab } from '@/components/ui/svgs/gitlab';
 import { Google } from '@/components/ui/svgs/google';
 import { authClient } from '@/lib/auth-client';
-import { loginWithOAuth } from '@/utils/auth.client';
+import { loginWithOAuth } from '@/utils/auth';
 
-/**
- * TODO: Migrate to tanstack forms
- */
 export default function LoginForm() {
   const navigate = useNavigate();
   const formId = useId();
