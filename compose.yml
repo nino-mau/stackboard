@@ -14,7 +14,7 @@ services:
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
     restart: unless-stopped
-    command: sh -c "pnpm drizzle-kit push && pnpm dev"
+    command: sh -c "bun drizzle-kit push && bun dev"
     depends_on:
       db:
         condition: service_healthy

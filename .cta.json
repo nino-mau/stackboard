@@ -1,9 +1,9 @@
 {
-  "projectName": "stackboard-test",
+  "projectName": "stackboard",
   "mode": "file-router",
   "typescript": true,
+  "packageManager": "bun",
   "tailwind": true,
-  "packageManager": "pnpm",
   "addOnOptions": {
     "drizzle": {
       "database": "postgresql"
@@ -16,9 +16,13 @@
     "biome",
     "nitro",
     "start",
-    "compiler",
     "drizzle",
     "form",
-    "table"
+    "shadcn",
+    "t3env",
+    "table",
+    "better-auth",
+    "tanstack-query",
+    "compiler"
   ]
 }
