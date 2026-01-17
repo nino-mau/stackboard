@@ -63,8 +63,8 @@ export function PrimarySidebar(props: PrimarySidebarProps) {
   const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
 
   return (
-    <Sidebar collapsible="none" className="w-[61px]! border-r py-1.5 pt-0!">
-      <SidebarHeader className="flex h-17 items-center justify-center border-b p-0!">
+    <Sidebar collapsible="none" className="w-15.25! border-r py-1.5 pt-0!">
+      <SidebarHeader className="flex h-(--header-height) items-center justify-center border-b p-0!">
         <SiteLogo width={37} height={37} />
       </SidebarHeader>
       <SidebarContent className="pt-2">

@@ -65,6 +65,8 @@
    * Custom design tokens
    */
 
+  --header-height: 68px;
+
   --primary: var(--color-teal-500);
   --primary-50: var(--color-teal-50);
   --primary-100: var(--color-teal-100);
