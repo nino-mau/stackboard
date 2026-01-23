@@ -4,6 +4,7 @@ import {
   redirect,
   useRouteContext,
 } from '@tanstack/react-router';
+import AppHeader from '@/components/app-header';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { getSession } from '@/server/functions/auth';
@@ -27,6 +28,7 @@ function DashboardLayoutComponent() {
     <SidebarProvider>
       <AppSidebar user={user} />
       <SidebarInset>
+        <AppHeader user={user} />
         <Outlet />
       </SidebarInset>
     </SidebarProvider>
