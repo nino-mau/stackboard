@@ -35,11 +35,11 @@ export function SecondarySidebar({
       {...props}
     >
       <SidebarHeader className="h-(--header-height) justify-center gap-4 border-b px-4 py-0!">
-        <div className="mb-0.5 flex w-full flex-col">
-          <p className="font-normal text-base text-foreground">
+        <div className="flex w-full flex-col gap-1.5">
+          <p className="font-normal text-base text-foreground leading-none">
             {sidebarData.header.title}
           </p>
-          <p className="mt-0.5 text-muted-foreground text-xs">
+          <p className="mt-0.5 text-muted-foreground text-xs leading-none">
             {sidebarData.header.description}
           </p>
         </div>
