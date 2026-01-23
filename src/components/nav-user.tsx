@@ -1,3 +1,10 @@
+import {
+  CheckmarkBadge01Icon,
+  CreditCardIcon,
+  Logout01Icon,
+  Settings01Icon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -11,13 +18,6 @@ import {
 import { SidebarMenuButton } from '@/components/ui/sidebar';
 import type { User } from '@/types/user';
 import { getInitials } from '@/utils/misc';
-import {
-  CheckmarkBadge01Icon,
-  CreditCardIcon,
-  Logout01Icon,
-  Settings01Icon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Item,
   ItemContent,
@@ -34,20 +34,20 @@ export function NavUser({ user }: { user: User }) {
         render={
           <SidebarMenuButton
             size="default"
-            className="p-0 hover:ring-4 hover:ring-accent"
+            className="size-fit p-0 hover:ring-4 hover:ring-accent"
           />
         }
       >
-        <Avatar className="rounded-lg">
+        <Avatar className="rounded-sm">
           {/* Render avatar if image exist */}
           {user.image && (
             <AvatarImage
-              className="rounded-lg"
+              className="rounded-sm"
               src={user.image}
               alt={user.name}
             />
           )}
-          <AvatarFallback className="rounded-lg">
+          <AvatarFallback className="rounded-sm">
             {getInitials(user.name)}
           </AvatarFallback>
         </Avatar>
@@ -57,15 +57,15 @@ export function NavUser({ user }: { user: User }) {
           <DropdownMenuLabel>
             <Item size="xs">
               <ItemMedia>
-                <Avatar className="rounded-lg">
+                <Avatar className="rounded-sm">
                   {user.image && (
                     <AvatarImage
                       src={user.image}
                       alt={user.name}
-                      className="rounded-lg"
+                      className="rounded-sm"
                     />
                   )}
-                  <AvatarFallback className="rounded-lg">
+                  <AvatarFallback className="rounded-sm">
                     {getInitials(user.name)}
                   </AvatarFallback>
                 </Avatar>
