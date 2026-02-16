@@ -14,7 +14,7 @@ import type { Sidebar, SidebarType } from '@/types/sidebar';
 export const sidebarConfig: Record<SidebarType, Sidebar> = {
   projects: {
     header: {
-      title: 'Project',
+      title: 'Projects',
       description: 'Manage your projects',
       actionButton: (
         <Button variant="outline" className="w-full">
